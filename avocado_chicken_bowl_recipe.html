@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Боул с курицей, авокадо и лимонно-йогуртовым соусом</title>
+  <style>
+    :root {
+      --bg: #f7f3ea;
+      --card: #fffaf0;
+      --text: #24211d;
+      --muted: #6f675c;
+      --accent: #4f7d3f;
+      --accent-dark: #355c2b;
+      --line: #e2d8c7;
+      --note: #eef6e9;
+      --warning: #fff1d8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 32px 18px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #fffaf0 0%, #eef6e9 100%);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 34px 34px 28px;
+      box-shadow: 0 12px 30px rgba(40, 34, 25, 0.08);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .meta div {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .meta strong {
+      display: block;
+      color: var(--accent-dark);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 8px 20px rgba(40, 34, 25, 0.045);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 25px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      margin: 22px 0 8px;
+      font-size: 18px;
+      color: var(--accent-dark);
+    }
+
+    ul, ol {
+      margin-top: 8px;
+      padding-left: 22px;
+    }
+
+    li { margin: 7px 0; }
+
+    .ingredients ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+
+    .ingredients li {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .ingredients li:last-child { border-bottom: none; }
+
+    .amount {
+      color: var(--muted);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .steps ol {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .steps li {
+      position: relative;
+      padding-left: 48px;
+      margin: 18px 0;
+    }
+
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .note, .warning {
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+    }
+
+    .note { background: var(--note); }
+    .warning { background: var(--warning); }
+
+    .finish-list {
+      columns: 2;
+      column-gap: 26px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 28px;
+    }
+
+    @media (max-width: 760px) {
+      .hero { padding: 26px 22px; }
+      .meta { grid-template-columns: repeat(2, 1fr); }
+      .grid { grid-template-columns: 1fr; }
+      .finish-list { columns: 1; }
+    }
+
+    @media print {
+      body { background: white; }
+      .page { max-width: none; padding: 0; }
+      .hero, section {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <span class="tag">Без лука · без остроты · домашний ресторанный уровень</span>
+      <h1>Боул с курицей, авокадо и лимонно-йогуртовым соусом</h1>
+      <p class="subtitle">
+        Сытный тёплый боул на основе риса, курицы, обжаренной кукурузы и кремового авокадо.
+        Главная логика блюда: рис даёт базу, курица — белок и умами, кукуруза — сладость,
+        авокадо — жирность, лимонный йогуртовый соус — кислоту и свежесть.
+      </p>
+
+      <div class="meta">
+        <div><strong>Выход</strong>2 порции</div>
+        <div><strong>Время</strong>30–40 минут</div>
+        <div><strong>Сложность</strong>лёгкая</div>
+        <div><strong>Профиль</strong>мягкий, сливочный, свежий</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="ingredients">
+        <h2>Ингредиенты</h2>
+
+        <h3>Основа</h3>
+        <ul>
+          <li><span>Рис сухой</span><span class="amount">140 г</span></li>
+          <li><span>Вода</span><span class="amount">250–280 мл</span></li>
+          <li><span>Соль</span><span class="amount">3 г</span></li>
+          <li><span>Сливочное масло</span><span class="amount">10–15 г</span></li>
+        </ul>
+
+        <h3>Курица</h3>
+        <ul>
+          <li><span>Куриное филе или бедро без кости</span><span class="amount">300–350 г</span></li>
+          <li><span>Соль</span><span class="amount">4 г</span></li>
+          <li><span>Сладкая паприка</span><span class="amount">1 ч. л.</span></li>
+          <li><span>Чесночный порошок</span><span class="amount">½ ч. л.</span></li>
+          <li><span>Соевый соус</span><span class="amount">1 ст. л.</span></li>
+          <li><span>Масло для жарки</span><span class="amount">1 ст. л.</span></li>
+          <li><span>Сливочное масло в конце</span><span class="amount">10 г</span></li>
+        </ul>
+
+        <h3>Добавки</h3>
+        <ul>
+          <li><span>Спелое авокадо</span><span class="amount">1 шт.</span></li>
+          <li><span>Кукуруза консервированная</span><span class="amount">120–150 г</span></li>
+          <li><span>Огурец, опционально</span><span class="amount">1 небольшой</span></li>
+          <li><span>Лимонный сок</span><span class="amount">1–2 ч. л.</span></li>
+          <li><span>Соль для авокадо</span><span class="amount">щепотка</span></li>
+        </ul>
+
+        <h3>Соус</h3>
+        <ul>
+          <li><span>Греческий или густой йогурт</span><span class="amount">120 г</span></li>
+          <li><span>Лимонный сок</span><span class="amount">1 ст. л.</span></li>
+          <li><span>Мягкая горчица</span><span class="amount">½ ч. л.</span></li>
+          <li><span>Мёд или сахар</span><span class="amount">½ ч. л.</span></li>
+          <li><span>Соль</span><span class="amount">2 г</span></li>
+          <li><span>Чесночный порошок</span><span class="amount">щепотка</span></li>
+          <li><span>Оливковое масло, если есть</span><span class="amount">1 ч. л.</span></li>
+        </ul>
+      </section>
+
+      <section class="steps">
+        <h2>Приготовление</h2>
+        <ol>
+          <li>
+            <strong>Свари рис.</strong><br>
+            Промой 140 г риса. Залей 250–280 мл воды, добавь 3 г соли.
+            Вари на слабом огне до готовности. В конце вмешай 10–15 г сливочного масла.
+          </li>
+          <li>
+            <strong>Подготовь курицу.</strong><br>
+            Нарежь курицу небольшими кусками. Смешай с солью, паприкой, чесночным порошком,
+            соевым соусом и маслом. Дай постоять 10–20 минут.
+          </li>
+          <li>
+            <strong>Обжарь курицу.</strong><br>
+            Жарь на хорошо разогретой сковороде до румяной корочки и полной готовности.
+            В конце добавь 10 г сливочного масла и быстро перемешай.
+          </li>
+          <li>
+            <strong>Обжарь кукурузу.</strong><br>
+            Слей жидкость. Обжарь кукурузу 3–5 минут, лучше с маленьким кусочком сливочного масла.
+            Так она станет слаще и ароматнее.
+          </li>
+          <li>
+            <strong>Смешай соус.</strong><br>
+            Соедини йогурт, лимонный сок, горчицу, мёд или сахар, соль, чесночный порошок
+            и оливковое масло. Вкус должен быть мягко-кислый, солоноватый и свежий.
+          </li>
+          <li>
+            <strong>Подготовь авокадо.</strong><br>
+            Нарежь кубиками или ломтиками. Сразу сбрызни лимоном и посоли щепоткой соли.
+            Это обязательный шаг: без соли и кислоты авокадо часто кажется плоским.
+          </li>
+          <li>
+            <strong>Собери боул.</strong><br>
+            Вниз положи рис. Сверху — курицу, кукурузу, авокадо и огурец, если используешь.
+            Полей соусом перед подачей.
+          </li>
+        </ol>
+
+        <div class="note">
+          <strong>Профессиональная логика:</strong> авокадо здесь заменяет тяжёлый майонезный соус.
+          Чтобы блюдо не было жирным и скучным, его обязательно балансируют лимоном, солью и йогуртом.
+        </div>
+
+        <div class="warning">
+          <strong>Главная ошибка:</strong> не клади авокадо просто так без заправки.
+          Минимум — соль + лимонный сок. Иначе оно будет пресным даже в хорошем блюде.
+        </div>
+      </section>
+    </div>
+
+    <section style="margin-top: 22px;">
+      <h2>Финиш и подача</h2>
+      <p>
+        Для более ресторанного ощущения добавь один-два акцента сверху. Не нужно всё сразу:
+        задача — усилить аромат и текстуру, а не перегрузить боул.
+      </p>
+      <ul class="finish-list">
+        <li>жареный кунжут;</li>
+        <li>обжаренные семечки;</li>
+        <li>немного лимонной цедры;</li>
+        <li>петрушка, укроп или кинза;</li>
+        <li>несколько капель соевого соуса в тарелке;</li>
+        <li>тонкая струйка оливкового масла.</li>
+      </ul>
+    </section>
+
+    <p class="footer">Рецепт адаптирован под мягкий вкус: без лука, без остроты, с балансом соли, жира и кислоты.</p>
+  </main>
+</body>
+</html>
