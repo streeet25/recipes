@@ -3,20 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Recipe Lab</title>
+  <meta name="description" content="Моя коллекция домашних рецептов: боул с курицей и авокадо, курица с картошкой на противне и видео приготовления.">
+  <title>Recipe Lab — домашние рецепты</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       max-width: 760px;
       margin: 0 auto;
-      padding: 32px 18px;
+      padding: 48px 20px;
       line-height: 1.55;
       background: #faf7f2;
       color: #222;
     }
     h1 {
-      font-size: 32px;
-      margin-bottom: 8px;
+      font-size: clamp(32px, 6vw, 44px);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      margin: 0 0 12px;
     }
     .subtitle {
       color: #666;
@@ -24,31 +30,61 @@
     }
     .card {
       display: block;
-      padding: 18px;
+      padding: 24px;
       margin: 14px 0;
       background: #fff;
       border-radius: 16px;
+      border: 1px solid #eee7dd;
       text-decoration: none;
       color: inherit;
       box-shadow: 0 4px 18px rgba(0,0,0,0.06);
     }
-    .card strong {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 6px;
+    .card:hover {
+      border-color: #c5a77c;
+      background: #fffdf9;
     }
-    .card span {
+    .card:focus-visible {
+      outline: 3px solid #7c5734;
+      outline-offset: 4px;
+    }
+    .card h2 {
+      font-size: clamp(20px, 4vw, 24px);
+      line-height: 1.3;
+      margin: 0 0 8px;
+    }
+    .card p {
       color: #666;
+      margin: 0;
+    }
+    .card .action {
+      display: inline-block;
+      margin-top: 16px;
+      color: #7c5734;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    @media (max-width: 480px) {
+      body { padding: 32px 16px; }
+      .card { padding: 20px; }
     }
   </style>
 </head>
 <body>
-  <h1>Recipe Lab</h1>
-  <p class="subtitle">Моя база рецептов</p>
+  <main>
+    <h1>Recipe Lab</h1>
+    <p class="subtitle">Моя база рецептов</p>
 
-  <a class="card" href="./avocado_chicken_bowl_recipe.html">
-    <strong>🥑 Боул с курицей, авокадо и кукурузой</strong>
-    <span>Без лука, без остроты, на 2 порции</span>
-  </a>
+    <a class="card" href="./avocado_chicken_bowl_recipe.html">
+      <h2>🥑 Боул с курицей, авокадо и кукурузой</h2>
+      <p>Без лука, без остроты, на 2 порции</p>
+      <span class="action">Открыть рецепт <span aria-hidden="true">→</span></span>
+    </a>
+
+    <a class="card" href="./chicken_potatoes_recipe.html">
+      <h2>🍗 Курица с картошкой на противне</h2>
+      <p>С пореем, рукколой и чесночным йогуртом · 4 порции · видео</p>
+      <span class="action">Открыть рецепт <span aria-hidden="true">→</span></span>
+    </a>
+  </main>
 </body>
 </html>
